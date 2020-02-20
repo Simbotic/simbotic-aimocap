@@ -1,0 +1,3 @@
+[submodule "3rdparty/pose3d"]
+	path = 3rdparty/pose3d
+	url = https://github.com/Daniil-Osokin/lightweight-human-pose-estimation-3d-demo.pytorch.git
