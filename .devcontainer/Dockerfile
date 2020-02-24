@@ -116,3 +116,6 @@ RUN wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=1
 
 # To prevent X Error: BadShmSeg (invalid shared segment parameter) 128
 RUN export QT_X11_NO_MITSHM=1
+
+# Python pose3d application
+# export PYTHONPATH=/workspaces/simbotic-aimocap/3rdparty/pose3d/:$PYTHONPATH
