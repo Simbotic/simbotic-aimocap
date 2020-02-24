@@ -95,6 +95,15 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
 
+#add environment variable and change python alias
+COPY  bashrc /etc/bash.bashrc
+RUN chmod a+rwx /etc/bash.bashrc
+RUN update-alternatives --remove python /usr/bin/python2
+RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 10
+
+
+
+
 USER $USERNAME
 ENV HOME /home/$USERNAME
 WORKDIR $HOME
@@ -106,16 +115,15 @@ RUN sudo python3 get-pip.py
 #        python3-tk \
 
 #Pytorch
-RUN sudo pip install torch torchvision
+RUN sudo pip install torch torchvision  
+RUN sudo pip install onnx>=1.6 
+RUN sudo pip install opencv-python>=3.4 
+RUN sudo pip install numpy>=1.17
 
 # Symlink for python3
 RUN sudo ln -s /usr/bin/pip3 /usr/bin/pip
 
 # Download the model
-RUN wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=1niBUbUecPhKt3GyeDNukobL4OQ3jqssH' -O human-pose-estimation-3d.pth
-
-# To prevent X Error: BadShmSeg (invalid shared segment parameter) 128
-RUN export QT_X11_NO_MITSHM=1
-
-# Python pose3d application
-# export PYTHONPATH=/workspaces/simbotic-aimocap/3rdparty/pose3d/:$PYTHONPATH
+RUN sudo mkdir /models 
+WORKDIR /models
+RUN sudo wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=1niBUbUecPhKt3GyeDNukobL4OQ3jqssH' -O human-pose-estimation-3d.pth
