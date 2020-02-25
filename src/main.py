@@ -1,16 +1,18 @@
-import numpy as np 
-import cv2
-# Pose3D Application
-from modules.draw import Plotter3d
-
+from argparse import ArgumentParser
+# Main Application
 from Components.Static import Capture
 
 if __name__ == '__main__':
 
-    Capture.dummy_func()
-    canvas_3d = np.zeros((720, 1280, 3), dtype=np.uint8)
-    plotter = Plotter3d(canvas_3d.shape[:2])
-    canvas_3d_window_name = 'Canvas 3D'
-    cv2.namedWindow(canvas_3d_window_name)
-    cv2.setMouseCallback(canvas_3d_window_name, Plotter3d.mouse_callback)
-    cv2.imshow(canvas_3d_window_name, canvas_3d)
+    parser = ArgumentParser(description="Motion Capture using AI 3d Pose Estimation")
+    parser.add_argument('-m', '--model',
+                        help='Required. Path to checkpoint with a trained model ',
+                        type=str, required=True)
+    parser.add_argument('--video', help='Optional. Path to video file or camera id.', type=str, default='', required=True)
+    args = parser.parse_args()
+    if args.video == "" :
+        raise ValueError("--video has to be provided")
+    
+    Capture.load_video(args.video, args.model)
+    
+
