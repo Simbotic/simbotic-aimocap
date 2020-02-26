@@ -10,10 +10,10 @@ body_edges = np.array(
      [0, 6], [6, 7], [7, 8],        # neck - l_hip - l_knee - l_ankle
      [0, 12], [12, 13], [13, 14]])  # neck - r_hip - r_knee - r_ankle
 
-name_body_parts = dict([(0, "Neck"), (1, "Nose"), (16, "Left Eye"), (18, "Left Ear"), (15, "Right Eye"), (17, "Right Ear"),
-                        (3, "Left Shoulder"), (4, "Left Elbow"), (5, "Left Wrist"), (9, "Right Shoulder"), (10, "Right Elbow"), 
-                        (11, "Right Wrist"), (6, "Left Hip"), (7, "Left Knee"), (8, "Left Ankle"), (12, "Right Hip"), (13, "Right Knee"), 
-                        (14, "Right Ankle")])
+name_body_parts = dict([(0, "neck_01"), (1, "head"), (16, "Left Eye"), (18, "Left Ear"), (15, "Right Eye"), (17, "Right Ear"),
+                        (3, "upperarm_l"), (4, "lowerarm_l"), (5, "hand_l"), (9, "upperarm_r"), (10, "lowerarm_r"), 
+                        (11, "hand_r"), (6, "thigh_l"), (7, "calf_l"), (8, "foot_l"), (12, "thigh_r"), (13, "calf_r"), 
+                        (14, "foot_r")])
 mapped_skeletal = dict()
 
 def output_poses(poses_2d, frame_number):
