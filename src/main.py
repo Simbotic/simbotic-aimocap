@@ -1,8 +1,8 @@
 from argparse import ArgumentParser
 # Main Application
 #from Components.Static import Capture
-#from Components.Static.Generate import ModelManager
-import Componets.Static.Generate.ModelManager
+from Components.Static.Generate import ModelManager
+# import Componets.Static.Generate.ModelManager
 if __name__ == '__main__':
 
     parser = ArgumentParser(description="Motion Capture using AI 3d Pose Estimation")
@@ -15,7 +15,7 @@ if __name__ == '__main__':
         raise ValueError("--video has to be provided")
 
     #TODO Static model path
-    manager = ModelManager("SK_Mannequin.FBX")
+    manager = ModelManager("3DModel/input/SK_Mannequin.FBX")
 
     # Start Frame analysis
     #Capture.load_video(args.video, args.model)
