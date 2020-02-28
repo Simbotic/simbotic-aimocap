@@ -77,6 +77,12 @@ RUN make -j$(nproc)
 RUN make install
 RUN ldconfig
 
+# ASSIMP Library
+WORKDIR /
+RUN git clone https://github.com/assimp/assimp.git && cd assimp && cmake -D CMAKE_BUILD_TYPE=debug CMakeLists.txt && make -j4 && make install
+RUN ldconfig
+
+
 ARG USERNAME=sim
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
@@ -110,18 +116,11 @@ WORKDIR $HOME
 RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 RUN sudo python3 get-pip.py
 
-#        python3-numpy \
-#        python3-pip \
-#        python3-tk \
-
 #Pytorch
-RUN sudo pip install torch torchvision  
-RUN sudo pip install onnx>=1.6 
-RUN sudo pip install opencv-python>=3.4 
-RUN sudo pip install numpy>=1.17
-
+RUN sudo pip install torch torchvision onnx>=1.6 opencv-python>=3.4 numpy>=1.17 
+RUN sudo pip install pyassimp==4.1.3
 # Symlink for python3
-RUN sudo ln -s /usr/bin/pip3 /usr/bin/pip
+#RUN sudo ln -s /usr/bin/pip3 /usr/bin/pip
 
 # Download the model
 RUN sudo mkdir /models 

@@ -1,4 +1,6 @@
 models/*
+
+3DModel/output
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
