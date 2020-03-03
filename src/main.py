@@ -1,6 +1,6 @@
 from argparse import ArgumentParser
 # Main Application
-#from Components.Static import Capture
+from Components.Static import Capture
 from Components.Static.Generate import ModelManager
 # import Componets.Static.Generate.ModelManager
 if __name__ == '__main__':
@@ -15,7 +15,7 @@ if __name__ == '__main__':
         raise ValueError("--video has to be provided")
 
     #TODO Static model path
-    manager = ModelManager("3DModel/input/SK_Mannequin.FBX")
+    manager = ModelManager("3DModel/input/worker03_lumberjack.fbx")
 
     # Start Frame analysis
     #Capture.load_video(args.video, args.model)
