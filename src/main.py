@@ -15,9 +15,9 @@ if __name__ == '__main__':
         raise ValueError("--video has to be provided")
 
     #TODO Static model path
-    manager = ModelManager("3DModel/input/worker03_lumberjack.fbx")
+    #manager = ModelManager("3DModel/input/worker03_lumberjack.fbx")
 
     # Start Frame analysis
-    #Capture.load_video(args.video, args.model)
+    Capture.load_video(args.video, args.model)
     
 
