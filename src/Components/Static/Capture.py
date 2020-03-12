@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 import cv2
 from modules.input_reader import VideoReader
 from modules.inference_engine_pytorch import InferenceEnginePyTorch
@@ -36,6 +37,8 @@ extrinsics = {
     ]
 }
 
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
 
 def load_video(video_path, model):
     stride = 8
@@ -64,15 +67,17 @@ def load_video(video_path, model):
             y = poses_3d_copy[:, 1::4]
             z = poses_3d_copy[:, 2::4]
             poses_3d[:, 0::4], poses_3d[:, 1::4], poses_3d[:, 2::4] = -z, x, -y
-            print("Shape: {}".format(poses_3d.shape))
+            #print("Shape: {}".format(poses_3d.shape))
             poses_3d = poses_3d.reshape(poses_3d.shape[0], 19, -1)[:, :, 0:3]
-            print("Shape: {}".format(poses_3d.shape))
-            print(poses_3d)
-            #edges = (SKELETON_EDGES + 19 * np.arange(poses_3d.shape[0]).reshape((-1, 1, 1))).reshape((-1, 2))
+            #print("Shape: {}".format(poses_3d.shape))
+            edges = (SKELETON_EDGES + 19 * np.arange(poses_3d.shape[0]).reshape((-1, 1, 1))).reshape((-1, 2))
             #output_poses3d(poses_3d, counter, edges)
+            plot_keypoints(poses_3d)
+            
             print("/*/**/**/**/*/*/*/**/**/*/*/*/*")
             counter += 1
             #print(poses_3d)
+        break
         #output_poses(poses_2d, counter)
         #counter += 1
 
@@ -85,3 +90,25 @@ def rotate_poses(poses_3d):
         poses_3d[pose_id] = pose_3d.transpose().reshape(-1)
 
     return poses_3d
+
+# Helper Function, will be deleted later.
+
+def plot_keypoints(poses_3d):
+    #print(poses_3d[0][0])
+    counter = 1
+    #array = poses_3d[0]
+
+    #print(len(array))
+    #print("X: {}, Y: {}, Z: {}".format(array[0][0],array[0][1],array[0][2]))
+    #print("Shape: {}".format(poses_3d.shape))
+    for pose in poses_3d[0]:    
+        print(counter)
+        ax.scatter(pose[0], pose[1], pose[2], marker="^")    
+        counter += 1
+        
+    
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    ax.set_zlabel('Z')
+    
+    plt.show()
