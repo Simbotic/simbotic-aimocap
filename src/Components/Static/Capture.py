@@ -63,21 +63,24 @@ def load_video(video_path, model):
         if len(poses_3d):
             poses_3d = rotate_poses(poses_3d)
             poses_3d_copy = poses_3d.copy()
+            print("Shape of poses 3d after rotate: {}".format(poses_3d.shape))
             x = poses_3d_copy[:, 0::4]
             y = poses_3d_copy[:, 1::4]
             z = poses_3d_copy[:, 2::4]
+            
             poses_3d[:, 0::4], poses_3d[:, 1::4], poses_3d[:, 2::4] = -z, x, -y
             #print("Shape: {}".format(poses_3d.shape))
             poses_3d = poses_3d.reshape(poses_3d.shape[0], 19, -1)[:, :, 0:3]
+            print(poses_3d)
             #print("Shape: {}".format(poses_3d.shape))
-            edges = (SKELETON_EDGES + 19 * np.arange(poses_3d.shape[0]).reshape((-1, 1, 1))).reshape((-1, 2))
+            #edges = (SKELETON_EDGES + 19 * np.arange(poses_3d.shape[0]).reshape((-1, 1, 1))).reshape((-1, 2))
             #output_poses3d(poses_3d, counter, edges)
-            plot_keypoints(poses_3d)
+            #plot_keypoints(poses_3d)
             
             print("/*/**/**/**/*/*/*/**/**/*/*/*/*")
             counter += 1
             #print(poses_3d)
-        break
+        #break
         #output_poses(poses_2d, counter)
         #counter += 1
 
@@ -103,7 +106,7 @@ def plot_keypoints(poses_3d):
     #print("Shape: {}".format(poses_3d.shape))
     for pose in poses_3d[0]:    
         print(counter)
-        ax.scatter(pose[0], pose[1], pose[2], marker="^")    
+        ax.scatter(pose[1], pose[2], pose[0], marker="^")    
         counter += 1
         
     
